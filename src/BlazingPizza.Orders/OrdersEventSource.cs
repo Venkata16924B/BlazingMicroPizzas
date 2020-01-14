@@ -16,7 +16,7 @@ namespace BlazingPizza.Orders
         private long _totalOrders;
 
         internal OrdersEventSource()
-            : base("BlazingOrders.Pizza")
+            : base("BlazingPizza.Orders")
         {
 
         }

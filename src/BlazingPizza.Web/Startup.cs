@@ -58,8 +58,8 @@ namespace BlazingPizza.Web
                   .AddCookie()
                   .AddMicrosoftAccount(options =>
                   {
-                      options.ClientId = Configuration["Authentication:Twitter:ConsumerKey"];
-                      options.ClientSecret = Configuration["Authentication:Twitter:ConsumerSecret"];
+                      options.ClientId = Configuration["Authentication:Microsoft:ConsumerKey"];
+                      options.ClientSecret = Configuration["Authentication:Microsoft:ConsumerSecret"];
                   });
 
             services.AddServerSideBlazor();
@@ -67,18 +67,18 @@ namespace BlazingPizza.Web
 
             services.AddHttpClient("menu", client =>
             {
-                client.BaseAddress = new Uri(Configuration["Services:Menu"]);
+                client.BaseAddress = new Uri(Configuration.GetUrl("BlazingPizza.Menu"));
             });
 
             services.AddHttpClient("orders", client =>
             {
-                client.BaseAddress = new Uri(Configuration["Services:Orders"]);
+                client.BaseAddress = new Uri(Configuration.GetUrl("BlazingPizza.Orders"));
                 client.DefaultRequestVersion = HttpVersion.Version20;
             });
 
             services.AddGrpcClient<OrderStatusClient>(c =>
             {
-                c.Address = new Uri(Configuration["Services:Orders"]);
+                c.Address = new Uri(Configuration.GetUrl("BlazingPizza.Orders"));
             });
 
             services.Configure<ForwardedHeadersOptions>(options =>
